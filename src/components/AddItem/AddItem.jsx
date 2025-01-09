@@ -4,12 +4,10 @@ import ItemForm from '../ItemForm/ItemForm'
 function AppItem(props) {
 
     return (
-        <div>
-          <h2>Uuden merkinnän lisääminen</h2>
-          <ItemForm />
-        </div>
-      )
-    
-    }
-    
-    export default AppItem
+        <div className={styles.additem}>
+        <h2>Uuden merkinnän lisääminen</h2>
+        <ItemForm />
+      </div>
+    )
+  }
+  export default AppItem
