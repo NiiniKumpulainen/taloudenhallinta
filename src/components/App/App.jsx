@@ -4,22 +4,24 @@ import Header from '../Header'
 import Menu from '../Menu'
 import Content from '../Content'
 import Button from '../../shared/buttons'
+import { FloatingButton } from '../../shared/buttons'
 
 function App() {
 
-  <Content>
-  <Item />
-  <Item />
-  <Item />
-  <Item />
-  <Button>LISÄÄ UUSI RIVI</Button>
-</Content>     
-
-
-
-
-
-
+  return (
+    <>
+      <div className={styles.app}>
+        <Header />
+        <Content>
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+          <FloatingButton secondary>+</FloatingButton>
+        </Content>
+        <Menu />
+      </div>
+    </>
+  )
 }
-
 export default App
