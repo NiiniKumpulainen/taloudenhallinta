@@ -4,6 +4,7 @@ import Items from '../Items'
 import Root from '../Root'
 import Settings from '../Settings'
 import Stats from '../Stats'
+import AddItem from '../AddItem'
 
 function AppRouter(props) {
     const router = createBrowserRouter([
@@ -13,8 +14,9 @@ function AppRouter(props) {
           errorElement: <ErrorPage />,
           children: [
             { path: "", 
-              element: <Items />, 
+              element: <Items />,                          
               loader: () => { return props.data } },
+            { path: "add", element: <AddItem /> },
             { path: "stats", element: <Stats /> },
             { path: "settings", element: <Settings /> }
           ]
