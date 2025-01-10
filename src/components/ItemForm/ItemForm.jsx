@@ -1,31 +1,32 @@
-import styles from './ItemForm.module.scss'
+import { useNavigate } from 'react-router-dom'
 import useForm from '../../shared/useform/useform'
+import styles from './ItemForm.module.scss'
 import Button from '../../shared/buttons'
-
 function ItemForm(props) {
-    const submit = () => {
-        console.log(values)
-        alert("SUBMIT")
-      }
+  const navigate = useNavigate()
 
-      const initialState = {
-        type: "",
-        amount: 0,
-        paymentDate: "",
-        periodStart: "",
-        periodEnd: "",
-        receiver: ""
-      }
-      const {values, handleChange, handleSubmit } = useForm(submit, initialState, false)
+  const submit = () => {
+    let storedValues = Object.assign({}, values)
+    storedValues.amount = parseFloat(storedValues.amount)
+    props.onItemSubmit(storedValues)
+    navigate(-1)
+  }
 
-      const handleCancel = () => {
-        alert('CANCEL') 
-      }
-    
-      
-    return (
-        <div>
-        <form onSubmit={handleSubmit}>
+  const initialState = {
+    type: "",
+    amount: 0,
+    paymentDate: "",
+    periodStart: "",
+    periodEnd: "",
+    receiver: ""
+  }
+  const {values, handleChange, handleSubmit } = useForm(submit, initialState, false)
+  const handleCancel = () => {
+    navigate(-1)
+  }
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
         <div className={styles.itemform}>
           <div className={styles.itemform_row}>
             <div>
@@ -64,7 +65,7 @@ function ItemForm(props) {
               <input type='text' name='receiver' onChange={handleChange} value={values.receiver} />
             </div>
           </div>
-        </div>          <div className={styles.itemform_row}>
+          <div className={styles.itemform_row}>
             <div>
               <Button onClick={handleCancel}>PERUUTA</Button>
             </div>
@@ -72,9 +73,9 @@ function ItemForm(props) {
               <Button primary type='submit'>LISÄÄ</Button>
             </div>
           </div>
+        </div>
       </form>
     </div>
   )
-
 }
-export default ItemForm   
+export default ItemForm  
