@@ -11,7 +11,14 @@ function App() {
 
   const handleItemSubmit = (newitem) => {
     let copy = data.slice()
-    copy.push(newitem)
+
+    const index = copy.findIndex(item => item.id === newitem.id)
+    if (index >= 0) {
+      copy[index] = newitem
+    } else {
+      copy.push(newitem)
+    }
+
     copy.sort( (a,b) => {
       const aDate = new Date(a.paymentDate)
       const bDate = new Date(b.paymentDate)
@@ -19,6 +26,7 @@ function App() {
     })
     setData(copy)
   }
+
 
 
   return (
