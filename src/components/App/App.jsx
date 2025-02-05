@@ -35,14 +35,21 @@ function App() {
     setData(copy)
   }
 
+  const handleTypeSubmit = (type) => {
+    let copy = typelist.slice()
+    copy.push(type)
+    copy.sort()
+    setTypelist(copy)
+  }
 
 
   return (
     <>
-                <AppRouter data={data}
-                          typelist={typelist}
-                          onItemSubmit={handleItemSubmit}
-                          onItemDelete={handleItemDelete} />
+                      <AppRouter data={data}
+                 typelist={typelist}
+                 onItemSubmit={handleItemSubmit}
+                 onItemDelete={handleItemDelete}
+                 onTypeSubmit={handleTypeSubmit} />
 
 
     </>
