@@ -8,6 +8,7 @@ import { useState } from 'react'
 function App() {
 
   const [data, setData] = useState(testdata)
+  const [typelist, setTypelist] = useState(["Auto", "Puhelin", "Sähkö", "Vero", "Vesi"])
 
   const handleItemDelete = (id) => {
     let copy = data.slice()
@@ -38,9 +39,11 @@ function App() {
 
   return (
     <>
-                       <AppRouter data={data}
+                             <AppRouter data={data}
+                 typelist={typelist}
                  onItemSubmit={handleItemSubmit}
-                 onItemDelete={handleItemDelete} /> 
+                 onItemDelete={handleItemDelete} />
+
 
     </>
   )
