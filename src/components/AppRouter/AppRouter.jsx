@@ -32,8 +32,9 @@ throw new Response("Not Found", { status: 404 })
 }
 } },
 { path: "stats", element: <Stats /> },
-{ path: "settings", 
+{ path: "settings",
   element: <Settings typelist={props.typelist} /> }
+]
 }
 ])
 return (
