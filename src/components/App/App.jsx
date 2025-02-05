@@ -2,7 +2,8 @@ import { useState } from 'react'
 import useLocalStorage from '../../shared/uselocalstorage/uselocalstorage'
 import AppRouter from '../AppRouter'
 import testdata from './testdata.js'
-import { collection, deleteDoc, doc, getFirestore, onSnapshot, orderBy, query, setDoc  } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getFirestore, onSnapshot, orderBy, query, setDoc  } from 'firebase/firestore'
+
 
 import firebase from './firebase.js'
 import { useEffect } from 'react'
@@ -11,18 +12,30 @@ import { useEffect } from 'react'
 
 function App() {
   const [data, setData] = useState([])
-  const [typelist, setTypelist] = useLocalStorage('taloudenhallinta-typelist',[])
+  
+  const [typelist, setTypelist] = useState([])
+  
   const firestore = getFirestore(firebase)
+
+
+
+
   useEffect( () => {
-    const unsubscribe = onSnapshot(query(collection(firestore,'item'),orderBy('paymentDate', 'desc')), snapshot => {
-      const newData = []
+    const unsubscribe = onSnapshot(query(collection(firestore,'type'),
+                                         orderBy('type')),
+                                   snapshot => {
+      const newTypelist = []
       snapshot.forEach( doc => {
-        newData.push({ ...doc.data(), id: doc.id })
+        newTypelist.push(doc.data().type)
       })
-      setData(newData)
+      setTypelist(newTypelist)
     })
     return unsubscribe
-  }, [])
+  }, []) 
+
+
+
+
   const handleItemDelete = async (id) => {
     await deleteDoc(doc(firestore, 'item', id))
   }
@@ -30,12 +43,11 @@ function App() {
     await setDoc(doc(firestore, 'item', newitem.id), newitem)
   }
 
-  const handleTypeSubmit = (type) => {
-    let copy = typelist.slice()
-    copy.push(type)
-    copy.sort()
-    setTypelist(copy)
+  const handleTypeSubmit = async (type) => {
+    await addDoc(collection(firestore,'type'),{type: type})
   }
+
+  
   return (
     <>
       <AppRouter data={data}
