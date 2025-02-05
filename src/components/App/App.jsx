@@ -5,7 +5,10 @@ import testdata from './testdata.js'
 import { addDoc, collection, deleteDoc, doc, getFirestore, onSnapshot, orderBy, query, setDoc  } from 'firebase/firestore'
 
 
-import firebase from './firebase.js'
+import firebase, { auth } from './firebase.js'
+import { onAuthStateChanged } from 'firebase/auth'
+import Startup from '../Startup'
+
 import { useEffect } from 'react'
 
 
@@ -14,6 +17,8 @@ function App() {
   const [data, setData] = useState([])
   
   const [typelist, setTypelist] = useState([])
+  const [user, setUser] = useState()
+
   
   const firestore = getFirestore(firebase)
 
@@ -33,6 +38,11 @@ function App() {
     return unsubscribe
   }, []) 
 
+  useEffect( () => {
+    onAuthStateChanged(auth, user => {
+      setUser(user)
+    })
+  }, [])
 
 
 
@@ -48,13 +58,17 @@ function App() {
   }
 
   
-  return (
+ 
+        return (
     <>
-      <AppRouter data={data}
-                 typelist={typelist}
-                 onItemSubmit={handleItemSubmit}
-                 onItemDelete={handleItemDelete}
-                 onTypeSubmit={handleTypeSubmit} />
+    { user ?
+          <AppRouter data={data}
+                     typelist={typelist}
+                     onItemSubmit={handleItemSubmit}
+                     onItemDelete={handleItemDelete}
+                     onTypeSubmit={handleTypeSubmit} />
+        : <Startup auth={auth} />
+      }
     </>
   )
 }
