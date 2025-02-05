@@ -39,10 +39,10 @@ function App() {
 
   return (
     <>
-                             <AppRouter data={data}
-                 typelist={typelist}
-                 onItemSubmit={handleItemSubmit}
-                 onItemDelete={handleItemDelete} />
+                <AppRouter data={data}
+                          typelist={typelist}
+                          onItemSubmit={handleItemSubmit}
+                          onItemDelete={handleItemDelete} />
 
 
     </>
