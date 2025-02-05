@@ -34,7 +34,10 @@ throw new Response("Not Found", { status: 404 })
 { path: "stats", element: <Stats data={props.data} /> },
 { path: "settings",
   element: <Settings typelist={props.typelist}
-                     onTypeSubmit={props.onTypeSubmit} /> }
+                     onTypeSubmit={props.onTypeSubmit}
+                     user={props.user}
+                     auth={props.auth} /> }
+
 ]
 }
 ])
