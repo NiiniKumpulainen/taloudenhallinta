@@ -1,0 +1,5 @@
+// Luo uusi kuvaelementti
+var kuva = document.createElement('img');
+
+// Aseta kuvan lähde
+kuva.src = 'pictures/screenshot1.png';
